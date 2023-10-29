@@ -4,6 +4,7 @@ En aquest projecte un exemple d'aplicació adaptadiva amb .fxml
 
 És la base que detecta el canvi de mida de finestra, a partir de la que començar a desenvolupar altres projectes.
 
+CRISTIAN ALVAREZ MARTINEZ 
 ### Compilació i funcionament ###
 
 Cal el 'Maven' per compilar el projecte
