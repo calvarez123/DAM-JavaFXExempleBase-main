@@ -27,19 +27,32 @@ public class ControllerMobile0  implements Initializable{
     @FXML
     private VBox yPanel;
     @FXML
-    private Label titul;
+    private Label titulo;
     @FXML
-    private Button back;
+    private Button atras;
     @FXML
     private AnchorPane info;
     @FXML
-    private ScrollPane var;
+    private ScrollPane elecion;
     @FXML
     private Button boton1;
     
-    private String tit;
+    private String layaut_titulo;
     String opcions[] = { "Personatges", "Jocs", "Consoles" };
   
+    @FXML
+    private void ir_atras(ActionEvent event) {
+      if (yPanel.isVisible()){
+        titulo.setText("Nintendo DB");
+        load();
+      }else{
+          titulo.setText(layaut_titulo);
+          info.getChildren().clear();
+          info.setVisible(false);
+          yPanel.setVisible(true);
+          elecion.setVisible(true);
+      }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,19 +88,7 @@ public class ControllerMobile0  implements Initializable{
         });
       }
     
-     @FXML
-    private void go_back(ActionEvent event) {
-      if (yPanel.isVisible()){
-        titul.setText("Nintendo DB");
-        load();
-      }else{
-          titul.setText(tit);
-          info.getChildren().clear();
-          info.setVisible(false);
-          yPanel.setVisible(true);
-          var.setVisible(true);
-      }
-    }
+     
      
     
     
@@ -102,9 +103,9 @@ public class ControllerMobile0  implements Initializable{
     
 
     public void showList() throws Exception {
-        back.setVisible(false);
+        atras.setVisible(false);
         info.setVisible(false);
-        URL resource = this.getClass().getResource("/assets/listatem.fxml");
+        URL resource = this.getClass().getResource("/assets/listItem2.fxml");
     
         // Esborrar la llista actual
         yPanel.getChildren().clear();
@@ -115,14 +116,14 @@ public class ControllerMobile0  implements Initializable{
                 String nom = opcions[i];
                 FXMLLoader loader = new FXMLLoader(resource);
                 Parent itemTemplate = loader.load();
-                ControllerList itemController = loader.getController();
+                ControllerListItem2 itemController = loader.getController();
                 itemController.setText(nom);
                 final String  type =  opcions[i];
             
                 itemTemplate.setOnMouseClicked(event -> {
                   
-                  titul.setText(type);
-                  back.setVisible(true);
+                  titulo.setText(type);
+                  atras.setVisible(true);
                   yPanel.getChildren().clear();
                   load_show(type);
                   return;
@@ -143,8 +144,7 @@ public class ControllerMobile0  implements Initializable{
         } 
 
      public void show(String type) throws Exception {
-      tit=type;
-      
+      layaut_titulo=type;
       AppData appData = AppData.getInstance();
 
       // Obtenir les dades de l'opció seleccionada
@@ -172,11 +172,10 @@ public class ControllerMobile0  implements Initializable{
               itemController.setText(nom);
               itemController.setImage(imatge);
               
-              // Defineix el callback que s'executarà quan l'usuari seleccioni un element
-              // (cal passar final perquè es pugui accedir des del callback)
+              
               final int index = i;
                 itemTemplate.setOnMouseClicked(event -> {
-                  titul.setText(nom);
+                  titulo.setText(nom);
                   info.setVisible(true);
                   showInfo(type, index);
                 });
@@ -192,7 +191,7 @@ public class ControllerMobile0  implements Initializable{
 
   void showInfo(String type, int index) {
         yPanel.setVisible(false);
-        var.setVisible(false);
+        elecion.setVisible(false);
         // Obtenir una referència a l'ojecte AppData que gestiona les dades
         AppData appData = AppData.getInstance();
       

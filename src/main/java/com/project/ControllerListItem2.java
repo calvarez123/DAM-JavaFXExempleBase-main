@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 
-public class ControllerList {
+public class ControllerListItem2 {
     @FXML
     private Label text;
 

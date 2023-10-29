@@ -53,7 +53,7 @@ public class ControllerMobile1  implements Initializable{
                 String nom = opcions[i];
                 FXMLLoader loader = new FXMLLoader(resource);
                 Parent itemTemplate = loader.load();
-                ControllerList itemController = loader.getController();
+                ControllerListItem2 itemController = loader.getController();
                 itemController.setText(nom);
                 
               System.out.println("hola");
