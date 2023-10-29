@@ -34,6 +34,8 @@ public class ControllerMobile0  implements Initializable{
     private AnchorPane info;
     @FXML
     private ScrollPane var;
+    @FXML
+    private Button boton1;
     
     private String tit;
     String opcions[] = { "Personatges", "Jocs", "Consoles" };
@@ -41,8 +43,38 @@ public class ControllerMobile0  implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+      loadList("Personatges");
+      loadList("Jocs");
+      loadList("Consoles");
       load();
     } 
+
+    public void loadList(String opcion) {
+
+      // Obtenir l'opció seleccionada
+      String opcio = opcion;
+  
+      // Obtenir una referència a AppData que gestiona les dades
+      AppData appData = AppData.getInstance();
+  
+      // Mostrar el missatge de càrrega
+   
+  
+      // Demanar les dades
+      appData.load(opcio, (result) -> {
+          if (result == null) {
+            System.out.println("ControllerDesktop: Error loading data.");
+          } else {
+            // Cal afegir el try/catch a la crida de ‘showList’
+            try {
+
+            } catch (Exception e) {
+              System.out.println("ControllerDesktop: Error showing list.");
+            }
+          }
+        });
+      }
+    
      @FXML
     private void go_back(ActionEvent event) {
       if (yPanel.isVisible()){
@@ -57,7 +89,7 @@ public class ControllerMobile0  implements Initializable{
       }
     }
      
-      
+    
     
     public void load(){
         try {
@@ -67,6 +99,8 @@ public class ControllerMobile0  implements Initializable{
           }
     }
 
+    
+
     public void showList() throws Exception {
         back.setVisible(false);
         info.setVisible(false);
@@ -74,7 +108,8 @@ public class ControllerMobile0  implements Initializable{
     
         // Esborrar la llista actual
         yPanel.getChildren().clear();
-    
+        
+      
         // Carregar la llista amb les dades
         for (int i = 0; i < 3; i++) {
                 String nom = opcions[i];
@@ -82,8 +117,10 @@ public class ControllerMobile0  implements Initializable{
                 Parent itemTemplate = loader.load();
                 ControllerList itemController = loader.getController();
                 itemController.setText(nom);
-                final String type =  opcions[i];
+                final String  type =  opcions[i];
+            
                 itemTemplate.setOnMouseClicked(event -> {
+                  
                   titul.setText(type);
                   back.setVisible(true);
                   yPanel.getChildren().clear();
@@ -91,7 +128,10 @@ public class ControllerMobile0  implements Initializable{
                   return;
                 });
                 yPanel.getChildren().add(itemTemplate);
+                
         }
+        // Mostrar el missatge de càrrega
+      
     }
      public void load_show(String type){
         try {
@@ -185,7 +225,7 @@ public class ControllerMobile0  implements Initializable{
 
                 } catch (Exception e) {
                 System.out.println("ControllerDesktop: Error showing info.");
-                System.out.println(e);
+                
                 }
             }
 }
